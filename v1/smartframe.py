@@ -15,6 +15,7 @@ class Application(object):
 
     def __call__(self, environ, start_response):
         path = environ['PATH_INFO']
+        method = environ['REQUEST_METHOD']
         if path in self.routes:
             status = '200 OK'
             response_headers = [('Content-Type','text/html')]
@@ -25,4 +26,4 @@ class Application(object):
             status = '404 Not Found'
             response_headers = [('Content-Type','text/html')]
             start_response(status, response_headers)
-            return "404"
+            return "<h1>homepage</h1><p>{}</p>".format(environ)
